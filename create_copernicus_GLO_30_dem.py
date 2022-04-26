@@ -1,7 +1,11 @@
 import requests
 from osgeo import gdal 
 
-
+'''
+Feng Yin
+Department of Geography, UCL
+ucfafyi@ucl.ac.uk
+'''
 
 r = requests.get('https://copernicus-dem-90m.s3.amazonaws.com/tileList.txt')
 ret = r.content.decode()
