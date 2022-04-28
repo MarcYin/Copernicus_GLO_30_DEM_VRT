@@ -27,9 +27,12 @@ dem_30_url_temp ='/vsicurl/https://copernicus-dem-30m.s3.amazonaws.com/%s/%s.tif
 dem_30_urls = [dem_30_url_temp%(i,i) for i in dem_30_list_of_files]
 
 # filling dem30 gaps with dem90
-full_dem_urls = dem_30_urls + lost_dem_90_urls
+full_dem_urls = sorted(dem_30_urls + lost_dem_90_urls)
 
 
-vrt_options = gdal.BuildVRTOptions(resampleAlg=gdal.GRIORA_NearestNeighbour, resolution='highest')
+vrt_options = gdal.BuildVRTOptions(resampleAlg=gdal.GRIORA_NearestNeighbour, 
+                                   outputBounds=[-180, -90, 180, 90],
+                                   resolution='highest'
+                                   )
 vrt_file = gdal.BuildVRT('copernicus_GLO_30_dem.vrt', full_dem_urls, options=vrt_options)
 vrt_file = None
