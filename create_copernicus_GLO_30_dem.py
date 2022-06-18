@@ -9,12 +9,14 @@ ucfafyi@ucl.ac.uk
 
 r = requests.get('https://copernicus-dem-90m.s3.amazonaws.com/tileList.txt')
 ret = r.content.decode()
-dem_90_list_of_files = ret.split('\n')
+dem_90_list_of_files = ret.split('\r\n')
+dem_90_list_of_files = [i for i in dem_90_list_of_files if len(i) > 0]
 dem_90_coords = ['_'.join(i.split('_')[4:8]) for i in dem_90_list_of_files]
 
 r = requests.get('https://copernicus-dem-30m.s3.amazonaws.com/tileList.txt')
 ret = r.content.decode()
 dem_30_list_of_files = ret.split('\r\n')
+dem_30_list_of_files = [i for i in dem_30_list_of_files if len(i) > 0]
 dem_30_coords = ['_'.join(i.split('_')[4:8]) for i in dem_30_list_of_files]
 
 
